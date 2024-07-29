@@ -24,6 +24,16 @@ pipeline {
             }
         }
 
+        stage('Deploy') {
+            steps {
+                // Build the project using Maven
+                script {
+                    sh "scp target/${env.APP_NAME}.jar user@${env.DEPLOY_SERVER}:${env.DEPLOY_PATH}"
+                    }
+                }
+            }
+        }
+
         stage('Archive Artifacts') {
             steps {
                 // Archive the built artifacts
